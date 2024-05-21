@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--Thymeleaf 링크 처리-->
+<a th:href="@{/hello}">Go to /hello</a>
+<!--'@'을 사용한다-->
+<br>
+
+<!--예시-->
+<a th:href="@{/hello(name='AAA', age=16)}">Go to /hello</a>
+<a href="/hello?name=AAA&age=16">Go to /hello</a>
+<br>
+
+<a th:href="@{/hello(name='한글 처리', age=16)}">Go to /hello</a>
+<!-- -> /hello?name=한글%20처리&age=16-->
+<!--<a href="/hello?name=%ED%95%9C%EA%B8%80%20%EC%B2%98%EB%A6%AC&amp;age=16">Go to /hello</a>-->
+
+
+<!--<h4>[[${list}]]</h4>-->
+<!--<hr/>-->
+<!--<h4 th:text="${list}"></h4>-->
+
+<!--반복문 / 제어문 처리-->
+<!--status : index, count, size, first, last, add, even-->
+
+    <ul>
+        <li th:each="str: ${list}" th:text="${str}"></li>
+    </ul>
+
+    <ul>
+        <th:block th:each="str: ${list}">
+            <li>[[${str}]]</li>
+        </th:block>
+    </ul>
+
+<!--반복문의 status 변수-->
+    <ul>
+        <li th:each="str,status: ${list}">
+            [[${status.index}]] -- [[${str}]]
+        </li>
+    </ul>
+
+<!--th:if / th:unless / th:switch-->
+    <ul>
+        <li th:each="str,status: ${list}">
+            <span th:if="${status.odd}"> ODD == [[${str}]]</span>
+            <span th:unless="${status.odd}"> EVEN == [[${str}]]</span>
+        </li>
+    </ul>
+
+    <ul>
+        <li th:each="str,status: ${list}">
+            <span th:text="${status.odd} ?'ODD ---' + ${str}"></span>
+        </li>
+    </ul>
+
+<!-- ? 삼항연산자-->
+    <ul>
+        <li th:each="str,status: ${list}">
+            <span th:text="${status.odd} ?'ODD ---' + ${str} : 'EVEN ---' + ${str}"></span>
+        </li>
+    </ul>
+
+    <ul>
+        <li th:each="str,status: ${list}">
+            <th:block th:switch="${status.index % 3}">
+                <span th:case="0">0</span>
+                <span th:case="1">1</span>
+                <span th:case="2">2</span>
+            </th:block>
+        </li>
+    </ul>
+
+
+
+</body>
+</html>
