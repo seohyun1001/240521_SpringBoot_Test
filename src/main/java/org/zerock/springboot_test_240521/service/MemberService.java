@@ -41,4 +41,6 @@ public interface MemberService {
 
     }
 
+    void remove(String mid);
+
 }

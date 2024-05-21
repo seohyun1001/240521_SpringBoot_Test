@@ -16,7 +16,7 @@
                     회원가입
                 </div> <!-- end card-header -->
                 <div class="card-body">
-                    <form id="registerForm" action="/member/modify" method="post">
+                    <form id="registerForm" action="/member/modify" method="post" >
                         <div class="input-group mb-3">
                             <span class="input-group-text">아이디</span>
                             <input type="text" name="mid" class="form-control" th:value="${memberDTO.mid}" readonly>
@@ -51,6 +51,7 @@
                             <div class="float-end">
                                 <button type="submit" class="btn btn-primary modifyBtn">Modify</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="button" class="btn btn-danger removeBtn">탈퇴</button>
                             </div>
                         </div>
                     </form> <!-- end form -->
@@ -75,8 +76,15 @@
     //         alert("동일한 ID를 가진 계정이 존재합니다.")
     //     }
     // }, false)
+    const formObj = document.querySelector("#registerForm")
+    document.querySelector(".removeBtn").addEventListener("click", function (e){
+        e.preventDefault()
+        e.stopPropagation()
 
-    //
+        formObj.action = "/member/remove"
+        formObj.method = 'post'
+        formObj.submit()
+    }, false)
 
 </script>
 

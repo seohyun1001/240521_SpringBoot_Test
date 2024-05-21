@@ -75,5 +75,10 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
+    @Override
+    public void remove(String mid) {
+        memberRepository.deleteById(mid);
+    }
+
 
 }

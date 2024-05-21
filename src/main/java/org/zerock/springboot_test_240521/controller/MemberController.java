@@ -2,6 +2,7 @@ package org.zerock.springboot_test_240521.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.springboot_test_240521.dto.BoardDTO;
 import org.zerock.springboot_test_240521.dto.MemberJoinDTO;
 import org.zerock.springboot_test_240521.dto.PageRequestDTO;
 import org.zerock.springboot_test_240521.repository.MemberRepository;
 import org.zerock.springboot_test_240521.service.MemberService;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -25,11 +28,6 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-
-    @GetMapping("/")
-    public String mainGet(){
-        return "forward:/board/list";
-    }
 
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
@@ -100,5 +98,18 @@ public class MemberController {
         redirectAttributes.addAttribute("mid", memberJoinDTO.getMid());
         return "redirect:/member/myPage";
     }
+
+//    @PreAuthorize("principal.username == #memberJoinDTO.mid")
+    @PostMapping("/remove")
+    public String remove(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+        String mid = memberJoinDTO.getMid();
+        log.info("remove post ----- " + mid);
+
+        memberService.remove(mid);
+
+        redirectAttributes.addFlashAttribute("result", "removed");
+        return "redirect:/board/list";
+    }
+
 }
 
