@@ -36,6 +36,6 @@ public interface MemberService {
     }
 
     // 회원 삭제
-    void remove(String mid);
+    String remove(String mid);
 
 }

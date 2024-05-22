@@ -67,8 +67,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void remove(String mid) {
+    public String remove(String mid) {
         memberRepository.deleteById(mid);
+
+        return "redirect:/logout";
     }
 
 

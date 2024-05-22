@@ -76,6 +76,7 @@ public class MemberController {
 
 
     @GetMapping( {"modify", "myPage"})
+    // Principal: 로그인 정보(아이디, 권한 등 / 비밀번호는 없음)가 모두 담겨있는 객체
     public void modify(Principal principal, PageRequestDTO pageRequestDTO, Model model) {
         MemberJoinDTO memberJoinDTO = memberService.myPage(principal.getName());
         model.addAttribute("memberDTO", memberJoinDTO);
@@ -101,14 +102,12 @@ public class MemberController {
 
 //    @PreAuthorize("principal.username == #memberJoinDTO.mid")
     @PostMapping("/remove")
-    public String remove(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, HttpServletRequest req) {
+    public String remove(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
         String mid = memberJoinDTO.getMid();
-        HttpSession session = req.getSession();
 
         log.info("remove post ----- " + mid);
 
         memberService.remove(mid);
-        session.invalidate();
         redirectAttributes.addFlashAttribute("result", "removed");
         return "redirect:/board/list";
     }
