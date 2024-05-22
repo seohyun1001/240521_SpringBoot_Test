@@ -28,6 +28,8 @@ public interface MemberService {
                 .name(member.getName())
                 .email(member.getEmail())
                 .address(member.getAddress())
+                .regDate(member.getRegDate())
+                .modDate(member.getModDate())
                 .build();
 
         return memberJoinDTO;
