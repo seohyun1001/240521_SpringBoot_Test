@@ -65,7 +65,7 @@
 
 <script layout:fragment="script" th:inline="javascript">
 
-    const formObj = document.querySelector("form")
+    const formObj = document.querySelector("#registerForm")
     document.querySelector(".confirmBtn").addEventListener("click", function (e){
         console.log("click")
         e.preventDefault()
@@ -73,13 +73,17 @@
         formObj.action="/member/confirm"
         formObj.method="post"
         formObj.submit()
-        const error = [[${error}]]
-        if (error && error === 'mid') {
-            alert("동일한 ID를 가진 계정이 존재합니다.")
-        }
     }, false)
 
-    //
+    const error = [[${error}]]
+    if (error && error === 'mid') {
+        alert("동일한 ID를 가진 계정이 존재합니다.")
+    }
+
+    const result = [[${result}]]
+    if (result && result === 'success') {
+        alert("이 아이디는 사용 가능합니다.")
+    }
 
 </script>
 

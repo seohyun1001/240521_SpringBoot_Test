@@ -64,18 +64,6 @@
 </div> <!-- end layout -->
 
 <script layout:fragment="script" th:inline="javascript">
-    // /member/join error 처리
-    // document.querySelector(".confirmBtn").addEventListener("click", function (e){
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    //     formObj.action="/member/confirm"
-    //     formObj.method="post"
-    //     formObj.submit()
-    //     const error = [[${error}]]
-    //     if (error && error ==='mid') {
-    //         alert("동일한 ID를 가진 계정이 존재합니다.")
-    //     }
-    // }, false)
     const formObj = document.querySelector("#registerForm")
     document.querySelector(".removeBtn").addEventListener("click", function (e){
         e.preventDefault()

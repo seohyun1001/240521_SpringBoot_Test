@@ -74,7 +74,9 @@ public class MemberController {
             // -> member join 페이지로 이동
             return "redirect:/member/join";
         }
-        return null;
+        redirectAttributes.addFlashAttribute("result", "success");
+        redirectAttributes.addFlashAttribute("mid", memberJoinDTO.getMid());
+        return "redirect:/member/join";
     }
 
     @GetMapping( {"modify", "myPage"})
