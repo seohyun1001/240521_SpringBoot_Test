@@ -178,9 +178,7 @@
         e.preventDefault()
         e.stopPropagation()
 
-        // 화면에 보이는 파일들을 form 태그에 추가
         appendFileData()
-        // 화면에서 안 보이도록 처리된 파일들을 form 태그에 추가
         appendNotShownData()
 
         formObj.action = `/board/remove`
@@ -213,23 +211,17 @@
         self.location = `/board/list?${link}`
     }, false)
 
-    // 첨부파일 삭제 함수
-    // 삭제할 파일의 uuid, fileName을 저장하는 임시 배열
     const removeFileList = []
     function removeFile(uuid, fileName, obj){
         if (!confirm("파일을 삭제하시겠습니까?")){
-            // 확인 메세지 박스에서 취소를 누를 경우 return
             return
         }
         console.log(uuid)
         console.log(fileName)
         console.log(obj)
 
-        // uuid, fileName을 배열에 저장
         removeFileList.push({uuid, fileName})
-        // 버튼의 card div 변수에 저장
         const targetDiv = obj.closest(".card")
-        // card div 삭제
         targetDiv.remove()
     }
 

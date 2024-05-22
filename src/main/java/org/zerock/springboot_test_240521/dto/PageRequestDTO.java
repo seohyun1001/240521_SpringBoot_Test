@@ -39,8 +39,6 @@ public class PageRequestDTO {
         return PageRequest.of(this.page - 1, this.size, Sort.by(props).descending());
     }
 
-
-
     private String link;
 
     public String getLink() {

@@ -25,27 +25,24 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @Tag(name = "Replies POST", description = "POST 방식으로 댓글 등록")
-    // @ApiOperation(value, notes) 대신에 Tag 씀
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    // ResponseEntity : 데이터를 http 상태 코드와 같이 앞단에 전달하기
     public Map<String, Long> register(
             @Valid @RequestBody ReplyDTO replyDTO,
             BindingResult bindingResult) throws BindException {
         log.info(replyDTO);
 
-        // 오류 및 유효성 체크 등, 오류 발생시 에러 표시
         if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
 
         Map<String, Long> resultMap = new HashMap<>();
-//        resultMap.put("rno", 123L);
-        // 실제 데이터 넣는 서비스 구간
         Long rno = replyService.register(replyDTO);
         resultMap.put("rno", rno);
 
         return resultMap;
     }
+
+
 
     // 특정 게시물의 댓글 목록
     @Tag(name = "게시글 댓글", description = "GET 방식으로 특정 게시글 댓글 목록")

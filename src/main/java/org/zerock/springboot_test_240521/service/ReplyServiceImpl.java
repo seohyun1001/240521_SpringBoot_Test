@@ -14,7 +14,6 @@ import org.zerock.springboot_test_240521.dto.PageResponseDTO;
 import org.zerock.springboot_test_240521.dto.ReplyDTO;
 import org.zerock.springboot_test_240521.repository.ReplyRepository;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

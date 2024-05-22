@@ -29,6 +29,5 @@ public class BoardDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
-    // 첨부파일 이름들
     private List<String> fileNames;
 }

@@ -37,41 +37,17 @@ public class CustomSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("-------------------- configure --------------------");
 
-        // 커스텀 로그인 페이지
         http.formLogin().loginPage("/member/login");
-        // CSRF 토큰 비활성화
         http.csrf().disable();
-//
-//        http.rememberMe()
-//                .key("12345678")
-//                .tokenRepository(persistentTokenRepository())
-//                .userDetailsService(userDetailsService)
-//                .tokenValiditySeconds(60*60*24*30);
-//
-//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
-//
-//        http.oauth2Login().loginPage("/member/login");
 
         return http.build();
     }
 
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler() {
-//        return new Custom403Handler();
-//    }
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         log.info("-------------------- web configure --------------------");
-        //static 폴더 안에 존재하는 정적 리소스는 로그인 과정을 거치지 않고 실행 가능
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-//    @Bean
-//    public PersistentTokenRepository persistentTokenRepository() {
-//        JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
-//        repo.setDataSource(dataSource);
-//        return repo;
-//    }
 
 }

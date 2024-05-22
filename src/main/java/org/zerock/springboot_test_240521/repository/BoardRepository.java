@@ -10,8 +10,6 @@ import org.zerock.springboot_test_240521.repository.search.BoardSearch;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch {
-//    @Query(value = "select now()", nativeQuery = true)
-//    String getTime();
 
     @EntityGraph(attributePaths = {"imageSet"})
     @Query("select b from Board b where b.bno =:bno")

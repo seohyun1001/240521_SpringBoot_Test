@@ -35,24 +35,8 @@ public class Member extends BaseEntity{
         this.mpw = mpw;
     }
 
-    public void changeEmail(String email){
-        this.email = email;
-    }
-
-    public void changeDel(boolean del){
-        this.del = del;
-    }
-
     public void addRole(MemberRole memberRole){
         this.roleSet.add(memberRole);
-    }
-
-    public void clearRoles() {
-        this.roleSet.clear();
-    }
-
-    public void changeSocial(boolean social){
-        this.social = social;
     }
 
     public void changeAll(String mid, String mpw, String name, String email, String address){

@@ -36,11 +36,8 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // 게시글에 댓글 개수 표현하는 목록 출력으로 변경
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
-//        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
-//        log.info(responseDTO); -> BoardListAllDTO로 타입 변경
         PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
         log.info(responseDTO);
         model.addAttribute("responseDTO", responseDTO);
@@ -106,7 +103,6 @@ public class BoardController {
 
         boardService.remove(bno);
 
-        // 게시물이 데이터베이스상에서 삭제되었다면 첨부파일 삭제
         log.info(boardDTO.getFileNames());
         List<String> fileNames = boardDTO.getFileNames();
         if (fileNames != null && fileNames.size() > 0) {
@@ -129,7 +125,6 @@ public class BoardController {
 
                 resource.getFile().delete();
 
-                // 썸네일이 존재한다면
                 if (contentType.startsWith("image")) {
                     File thumbnailFile = new File(uploadPath + File.separator + "s_" + fileName);
                     thumbnailFile.delete();

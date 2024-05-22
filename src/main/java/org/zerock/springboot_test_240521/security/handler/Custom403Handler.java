@@ -17,17 +17,13 @@ public class Custom403Handler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         log.info("----------------- ACCESS DENIED ----------------");
-        // 돌려줄 상태를 403으로 설정
         response.setStatus(HttpStatus.FORBIDDEN.value());
 
 
-        // ContentType을 변수에 저장
         String contentType = request.getHeader("Content-Type");
-        // ContentType의 종류가 JSON 요청이었는지 확인 : JSON이면 true
         boolean jsonRequest = contentType.startsWith("application/json");
         log.info("isJSON: " + jsonRequest);
 
-        // json 타입이 아닐 경우 login 페이지로 이동
         if (!jsonRequest) {
             response.sendRedirect("/member/login?error=ACCESS_DENIED");
         }

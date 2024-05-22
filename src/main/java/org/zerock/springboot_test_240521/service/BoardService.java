@@ -31,7 +31,6 @@ public interface BoardService {
     PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO);
 
     // DTO를 엔티티로 변환하기
-    // boardDTO를 board 객체로 바꾸기 위해 사용하는 메서드(이미지 때문에)
     default Board dtoToEntity(BoardDTO boardDTO) {
 
         Board board = Board.builder()
@@ -41,14 +40,8 @@ public interface BoardService {
                 .writer(boardDTO.getWriter())
                 .build();
 
-        // boardDRO의 String[] 타입을 Set<BoarImage> 타입으로 바꿈
         if (boardDTO.getFileNames() != null) {
-            // 반복문으로 String[]의 문자열을 하나씩 변경
             boardDTO.getFileNames().forEach(fileName -> {
-                // uuid_파일이름.확장자
-                // uuid와 파일이름을 나누고 있음
-                // arr[0] : uuid
-                // arr[1] : 파일이름.확장자
                 String[] arr = fileName.split("_", 2);
                 board.addImage(arr[0], arr[1]);
             });
@@ -57,10 +50,8 @@ public interface BoardService {
     }
 
     // Board 엔티티를 BoardDTO 타입으로 변환
-
     default  BoardDTO entityToDto(Board board) {
 
-        // 단순 데이터 설정
         BoardDTO boardDTO = BoardDTO.builder()
                 .bno(board.getBno())
                 .title(board.getTitle())
@@ -70,10 +61,8 @@ public interface BoardService {
                 .modDate(board.getModDate())
                 .build();
 
-        // Set<boardImage>를 List<String>으로 변환하기 위한 코드
         List<String> fileNames =
                 board.getImageSet().stream().sorted().map(boardImage ->
-                        // UUID_파일명.확장자 형식으로 boardImage 테이터를 String 타입으로 바꿈
                         boardImage.getUuid() + "_" + boardImage.getFileName())
                         .collect(Collectors.toList());
 

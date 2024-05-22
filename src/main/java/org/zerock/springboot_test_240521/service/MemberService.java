@@ -1,34 +1,27 @@
 package org.zerock.springboot_test_240521.service;
 
-
-import org.zerock.springboot_test_240521.domain.Board;
 import org.zerock.springboot_test_240521.domain.Member;
-import org.zerock.springboot_test_240521.dto.BoardDTO;
 import org.zerock.springboot_test_240521.dto.MemberJoinDTO;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public interface MemberService {
 
     static class MIdExistException extends Exception {
     }
 
+    // 회원가입
     void join(MemberJoinDTO memberJoinDTO) throws MIdExistException;
 
-    // select
+    // 마이 페이지
     MemberJoinDTO myPage(String mid);
 
-    // select
+    // 중복확인
     MemberJoinDTO confirmMid(MemberJoinDTO memberJoinDTO) throws MIdExistException;
 
-    // update
+    // 정보 수정
     void modify(MemberJoinDTO memberJoinDTO);
 
-
+    // domain -> entity
     default  MemberJoinDTO entityToDto(Member member) {
-
-        // 단순 데이터 설정
         MemberJoinDTO memberJoinDTO = MemberJoinDTO.builder()
                 .mid(member.getMid())
                 .mpw(member.getMpw())
@@ -38,9 +31,9 @@ public interface MemberService {
                 .build();
 
         return memberJoinDTO;
-
     }
 
+    // 회원 삭제
     void remove(String mid);
 
 }
