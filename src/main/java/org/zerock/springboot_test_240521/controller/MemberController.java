@@ -1,5 +1,7 @@
 package org.zerock.springboot_test_240521.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -99,12 +101,14 @@ public class MemberController {
 
 //    @PreAuthorize("principal.username == #memberJoinDTO.mid")
     @PostMapping("/remove")
-    public String remove(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+    public String remove(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         String mid = memberJoinDTO.getMid();
+        HttpSession session = req.getSession();
+
         log.info("remove post ----- " + mid);
 
         memberService.remove(mid);
-
+        session.invalidate();
         redirectAttributes.addFlashAttribute("result", "removed");
         return "redirect:/board/list";
     }
